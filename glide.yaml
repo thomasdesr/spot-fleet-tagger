@@ -1,0 +1,13 @@
+package: github.com/thomaso-mirodin/spot-fleet-tagger
+import:
+- package: github.com/aws/aws-sdk-go
+  subpackages:
+  - aws
+  - aws/session
+  - service/ec2
+- package: github.com/golang/glog
+- package: github.com/jessevdk/go-flags
+- package: github.com/pkg/errors
+- package: github.com/prometheus/client_golang
+  subpackages:
+  - prometheus
