@@ -1,9 +1,9 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
-	"github.com/golang/glog"
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
 )
@@ -49,7 +49,7 @@ func init() {
 		for {
 			http.Handle("/metrics", prometheus.Handler())
 			if err := http.ListenAndServe(":8080", nil); err != nil {
-				glog.Error(errors.Wrap(err, "failed to start http server"))
+				log.Println(errors.Wrap(err, "failed to start http server"))
 			}
 		}
 	}()

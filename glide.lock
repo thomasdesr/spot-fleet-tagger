@@ -1,5 +1,5 @@
-hash: be110acf91d8f9d6497ece25dd01c45a95c473399f2e01ab84a6bd738ed243f3
-updated: 2016-07-01T10:55:15.496152392-07:00
+hash: bf63354a7f2be797fb8816e604b7cbf79bfac80d3e1413aa41c6de206ce96173
+updated: 2016-07-01T11:13:29.713947712-07:00
 imports:
 - name: github.com/aws/aws-sdk-go
   version: caee6e866bf437a6bef0777a3bf141cdd3aa022d
@@ -31,8 +31,6 @@ imports:
   - quantile
 - name: github.com/go-ini/ini
   version: a219cd2c4f8e533df61aa20befffb0b0f2aaed96
-- name: github.com/golang/glog
-  version: 23def4e6c14b4da8ac2ed8007337bc5eb5007998
 - name: github.com/golang/protobuf
   version: 3852dcfda249c2097355a6aabb199a28d97b30df
   subpackages:

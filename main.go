@@ -1,15 +1,19 @@
 package main
 
 import (
+	"log"
 	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/ec2"
-	"github.com/golang/glog"
 	"github.com/jessevdk/go-flags"
 	"github.com/pkg/errors"
 )
+
+func init() {
+	log.SetFlags(log.LstdFlags | log.Lshortfile | log.LUTC)
+}
 
 var Config struct {
 	KeepRunning bool `short:"k" long:"keep-running" env:"KEEP_RUNNING" description:"Should we do this once or do it every $SLEEP_INTERVAL seconds"`
@@ -24,21 +28,26 @@ func main() {
 	if err != nil {
 		return
 	}
+	log.Printf("Tagging SpotFleetRequests: %q with %q", Config.SpotFleetRequestIds, Config.Tags)
 
+	log.Println("Setting up AWS Client")
 	ec2Client := ec2.New(session.New(), &aws.Config{Region: aws.String("us-west-2")})
 
 	// Isn't a range because I want it to run the first time without sleeping
-	for t := time.Tick(time.Second * time.Duration(Config.Every)); ; <-t {
+	sleepInterval := time.Duration(Config.Every) * time.Second
+	for t := time.Tick(sleepInterval); ; <-t {
 		metrics.iterations.Inc()
 
 		err := tagSpotFleetRequestIds(ec2Client, Config.SpotFleetRequestIds, Config.Tags)
 		if err != nil {
 			metrics.errors.Inc()
-			glog.Error(errors.Wrap(err, "failed to tag spot instances"))
+			log.Println(errors.Wrap(err, "failed to tag spot instances"))
 		}
 
+		log.Printf("Sleeping for %q", sleepInterval)
 		if !Config.KeepRunning {
 			break
 		}
 	}
+	log.Println("Quitting")
 }
