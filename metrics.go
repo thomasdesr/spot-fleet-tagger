@@ -15,7 +15,7 @@ var metrics = struct {
 }{
 	prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Namespace: "databricks",
+			Namespace: "kubernetes",
 			Subsystem: "spot_tagger",
 			Name:      "iterations",
 			Help:      "Number of times this has run",
@@ -23,7 +23,7 @@ var metrics = struct {
 	),
 	prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Namespace: "databricks",
+			Namespace: "kubernetes",
 			Subsystem: "spot_tagger",
 			Name:      "errors",
 			Help:      "Number of errors that have occurred",
@@ -31,7 +31,7 @@ var metrics = struct {
 	),
 	prometheus.NewHistogramVec(
 		prometheus.HistogramOpts{
-			Namespace: "databricks",
+			Namespace: "kubernetes",
 			Subsystem: "spot_tagger",
 			Name:      "aws_api_latlency",
 			Help:      "Seconds spent waiting for AWS API Calls",
